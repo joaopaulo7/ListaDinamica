@@ -8,6 +8,16 @@ class lista{
 
 public:
 
+    void mostrar(){
+    particula* modulo = alfa;
+        do{
+            cout<< modulo<<"||";
+            modulo->revelar();
+            modulo = modulo->getProx();
+        }while(modulo != gama);
+        cout<< gama<<"||"; gama->revelar();
+    }
+
     void inserirfim(int item){
         this->ordenada = false;
         particula* inseri;
@@ -51,45 +61,7 @@ public:
 
 
     void ordenarAsc(){
-        int* vetor, i=0;
-        vetor = new int[tam];
-        particula* modulo = alfa;
-        do{
-            vetor[i] = modulo->getItem();
-            modulo = modulo->getProx();
-            i++;
-        }while(modulo != gama);
-        vetor[i] = modulo->getItem();
-        quick(vetor, tam);
-        modulo = gama;
-        do{
-            modulo->setItem(vetor[i]);
-            modulo = modulo->getAnt();
-            i--;
-        }while(modulo != alfa);
-        modulo->setItem(vetor[i]);
-    }
-
-
-    void ordenarDesc(){
-        int* vetor, i=0;
-        vetor = new int[tam];
-        particula* modulo = alfa;
-        do{
-            vetor[i] = modulo->getItem();
-            modulo = modulo->getProx();
-            i++;
-        }while(modulo != gama);
-        vetor[i] = modulo->getItem();
-        quick(vetor, tam);
-        modulo = gama;
-        i=0;
-        do{
-            modulo->setItem(vetor[i]);
-            modulo = modulo->getAnt();
-            i++;
-        }while(modulo != alfa);
-        modulo->setItem(vetor[i]);
+        quick(alfa, tam, gama);
     }
 
 private:
