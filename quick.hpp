@@ -4,44 +4,34 @@ using namespace std;
 
 void quick(particula* ini, int tamanho, particula* fimu)
 {
-    if(tamanho % 2 != 0){
-        tamanho++;
-    }
-    particula* ondenados= fimu;
+    particula* ordenados= ini;
     particula* contador = ini;
     particula* pivo= ini;
-    for (int i = 0; i < tamanho/2; i++){
+    for (int i = 0; i < tamanho-1; i++){
         pivo = pivo->getProx();
     }
     int auxiliar;
-    while(contador != fimu)
+
+
+    while(contador != fimu->getProx())
     {
-        if(contador->getItem() >= pivo->getItem() || contador == pivo)
+        if(contador->getItem() < pivo->getItem())
         {
-            ondenados = fimu;
-            while(ondenados->getItem() > pivo->getItem() && ondenados != contador){
-                ondenados = ondenados->getAnt();
+            auxiliar= contador->getItem();
+            contador->setItem(ordenados->getItem());
+            ordenados->setItem(auxiliar);
+            if(contador == pivo)
+            {
+                pivo = ordenados;
             }
-            if(ondenados == pivo &&  ondenados != contador && contador->getItem() != ondenados->getItem() ){
-                auxiliar= contador->getItem();
-                contador->setItem(ondenados->getItem());
-                ondenados->setItem(auxiliar);
-                pivo =contador;
-            } else if(contador == pivo && contador->getItem() != ondenados->getItem() ){
-                auxiliar= pivo->getItem();
-                pivo->setItem(ondenados->getItem());
-                ondenados->setItem(auxiliar);
-                pivo = ondenados;
-            }else if(contador->getItem() != ondenados->getItem()){
-                auxiliar= contador->getItem();
-                contador->setItem(ondenados->getItem());
-                ondenados->setItem(auxiliar);
-
-            }
+            ordenados = ordenados->getProx();
         }
-            contador = contador->getProx();
-
+        contador = contador->getProx();
     }
+            auxiliar= ordenados->getItem();
+            ordenados->setItem(pivo->getItem());
+            pivo->setItem(auxiliar);
+            pivo = ordenados;
 
     tamanho=0;
     int tamanho2=0;
@@ -54,11 +44,12 @@ void quick(particula* ini, int tamanho, particula* fimu)
         tamanho++;
         pivo = pivo->getProx();
     }
-    if(tamanho2 > 1){
-        quick(ini, tamanho2, contador);
+    if(tamanho2-1 > 0){
+        quick(ini, tamanho2, contador->getAnt());
     }
-    if(tamanho > 1){
-        quick(contador, tamanho, fimu);
+    if(tamanho-1 > 0){
+        quick(contador->getProx(), tamanho, fimu);
     }
 
 }
+
