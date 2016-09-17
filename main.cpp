@@ -13,10 +13,9 @@ using namespace std;
 
 int main() {
     lista listenha;
-    listenha.inserirfim(11000);
-    listenha.inserirfim(21);
-    listenha.inserirfim(100);
+    for(int i = 101; i > 0; i--)
+        listenha.inserirfim(i*i);
     listenha.listarCome();
-    listenha.ordenarDesc();
-    listenha.listarFim();
+    listenha.ordenarAsc();
+    listenha.listarCome();
 }
